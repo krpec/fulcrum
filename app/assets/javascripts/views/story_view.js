@@ -244,7 +244,11 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   editDescription: function() {
+    var id = this.id;
+    var current_description = $("div#story-" + id + " div.description").html()  ;
+
     this.model.set({editingDescription: true});
+    this.model.set({temp_description: current_description});
     this.render();
   },
 
@@ -341,7 +345,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           $(div).append(this.label("description", "Description"));
           $(div).append('<br/>');
           if(this.model.isNew() || this.model.get('editingDescription')) {
-            $(div).append(this.textArea("description"));
+            var description_texarea = this.textArea("description");
+            description_texarea.value = this.model.get('temp_description');
+            $(div).append(description_texarea);
           } else {
             var description = this.make('div');
             $(description).addClass('description');

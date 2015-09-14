@@ -1,4 +1,5 @@
 class Notifications < ActionMailer::Base
+  default from: "fulcrum@krp3c.eu"
 
   def delivered(story, delivered_by)
     @story = story
@@ -33,5 +34,10 @@ class Notifications < ActionMailer::Base
 
     mail :to => @notify_emails, :from => @note.user.email,
       :subject => "[#{@story.project.name}] New comment on '#{@story.title}'"
+  end
+
+  def test
+
+    mail :to => "rdittrich@salmonsoftware.ie", subject: "test"
   end
 end
